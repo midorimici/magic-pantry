@@ -1,6 +1,7 @@
 import { useRecoilValue } from 'recoil'
 import { Button, Stack, Typography } from '@mui/material'
 import { Add } from '@mui/icons-material'
+import { IngredientCardGridList } from 'components/molecules'
 import { ingredientsState } from 'states/pantry/atom'
 
 type Props = {
@@ -11,7 +12,7 @@ export const AddIngredientRecommendation: React.FC<Props> = ({ setShowDialog }) 
   const ingredients = useRecoilValue(ingredientsState)
 
   if (ingredients.length > 0) {
-    return null
+    return <IngredientCardGridList ings={ingredients} />
   }
 
   return (

@@ -29,6 +29,7 @@ export const AddIngredientDialog: React.FC<Props> = ({ showDialog, setShowDialog
     setDescription,
     ingredientValidationError,
     quantityValidationError,
+    handleKeyDown,
     handleRegistration,
   } = useAddIngredient()
 
@@ -49,6 +50,7 @@ export const AddIngredientDialog: React.FC<Props> = ({ showDialog, setShowDialog
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                 setIngredient(e.target.value)
               }
+              onKeyDown={handleKeyDown}
             />
             <Close />
             <TextField
@@ -58,6 +60,7 @@ export const AddIngredientDialog: React.FC<Props> = ({ showDialog, setShowDialog
               value={quantity}
               variant="standard"
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setQuantity(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
           </Stack>
           <LocalizationProvider dateAdapter={DateAdapter}>
@@ -80,7 +83,7 @@ export const AddIngredientDialog: React.FC<Props> = ({ showDialog, setShowDialog
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setShowDialog(false)}>Cancel</Button>
-        <Button variant="contained" onClick={() => handleRegistration()}>
+        <Button type="submit" variant="contained" onClick={handleRegistration}>
           Add
         </Button>
       </DialogActions>

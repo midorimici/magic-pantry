@@ -11,6 +11,12 @@ export const useAddIngredient = () => {
   const [quantityValidationError, setQuantityValidationError] = useState('')
   const setIngredients = useSetRecoilState(ingredientsState)
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      handleRegistration()
+    }
+  }
+
   const handleRegistration = () => {
     if (ingredient === '') {
       setIngredientValidationError('Please provide ingredient name.')
@@ -49,6 +55,7 @@ export const useAddIngredient = () => {
     setDescription,
     ingredientValidationError,
     quantityValidationError,
+    handleKeyDown,
     handleRegistration,
   }
 }

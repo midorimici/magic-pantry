@@ -1,44 +1,21 @@
-import { useEffect } from 'react'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { GoogleAuthProvider, signInWithRedirect, AuthError } from '@firebase/auth'
-import { auth } from 'lib/firebase'
+import { SignIn } from 'components/templates'
+import { useAuthState, useSignOutHandler } from 'hooks'
 import { authUserState } from 'states/auth/atom'
 
-const SignIn: NextPage = () => {
-  const setAuthUser = useSetRecoilState(authUserState)
-  const router = useRouter()
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setAuthUser(user)
-        router.push('/')
-      }
-    })
-  }, [])
-
-  const logIn = () => {
-    const provider = new GoogleAuthProvider()
-    signInWithRedirect(auth, provider)
-  }
-
-  const logOut = () => {
-    auth
-      .signOut()
-      .then(() => console.info('sign out'))
-      .catch((err: AuthError) => {
-        console.error(`Sign out failed: ${err.code} ${err.message} ${err.stack}`)
-      })
-  }
+const SignInPage: NextPage = () => {
+  const user = useRecoilValue(authUserState)
+  const { isLoading, handleSignOut } = useSignOutHandler()
+  const { isLoadingAuthState } = useAuthState()
 
   return (
-    <div>
-      <button onClick={logIn}>Log in</button>
-      <button onClick={logOut}>Log out</button>
-    </div>
+    <SignIn
+      isLoading={isLoading || isLoadingAuthState}
+      isLoggedIn={user !== null}
+      handleSignOutButtonClick={handleSignOut}
+    />
   )
 }
 
-export default SignIn
+export default SignInPage

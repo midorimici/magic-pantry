@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil'
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
 import { SignIn } from 'components/templates'
 import { useAuthState, useSignOutHandler } from 'hooks'
 import { authUserState } from 'states/auth/atom'

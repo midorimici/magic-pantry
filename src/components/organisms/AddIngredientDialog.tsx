@@ -1,5 +1,7 @@
+import Image from 'next/image'
 import {
   Autocomplete,
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -95,6 +97,14 @@ export const AddIngredientDialog: React.FC<Props> = ({ showDialog, setShowDialog
         </Stack>
       </DialogContent>
       <DialogActions>
+        <Box sx={{ width: '100%' }}>
+          <Image
+            alt="edamam-badge"
+            height={40}
+            src="https://developer.edamam.com/images/transparent.png"
+            width={200}
+          />
+        </Box>
         <Button onClick={() => setShowDialog(false)}>Cancel</Button>
         <Button type="submit" variant="contained" onClick={handleRegistration}>
           Add

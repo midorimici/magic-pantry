@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Button,
   Dialog,
   DialogActions,
@@ -10,7 +11,7 @@ import {
 import { Close } from '@mui/icons-material'
 import { DatePicker, LocalizationProvider } from '@mui/lab'
 import DateAdapter from '@mui/lab/AdapterDateFns'
-import { useAddIngredient } from './hooks'
+import { useAddIngredient, useAutoSuggestion } from './hooks'
 
 type Props = {
   showDialog: boolean
@@ -32,25 +33,36 @@ export const AddIngredientDialog: React.FC<Props> = ({ showDialog, setShowDialog
     handleKeyDown,
     handleRegistration,
   } = useAddIngredient()
+  const { suggestions, handleIngredientChange } = useAutoSuggestion()
 
   return (
     <Dialog open={showDialog} onClose={() => setShowDialog(false)}>
       <DialogTitle>Add ingredients to pantry</DialogTitle>
       <DialogContent>
-        <Stack gap={4}>
+        <Stack gap={4} sx={{ width: '30rem' }}>
           <Stack alignItems="center" direction="row" gap={1}>
-            <TextField
-              autoFocus
-              error={ingredient === '' && ingredientValidationError !== ''}
-              helperText={ingredient === '' && ingredientValidationError}
-              inputProps={{ style: { textAlign: 'right' } }}
-              label="Ingredient"
-              value={ingredient}
-              variant="standard"
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                setIngredient(e.target.value)
-              }
-              onKeyDown={handleKeyDown}
+            <Autocomplete
+              disableClearable
+              freeSolo
+              inputValue={ingredient}
+              loading={suggestions === undefined}
+              options={suggestions ?? []}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  autoFocus
+                  error={ingredient === '' && ingredientValidationError !== ''}
+                  helperText={ingredient === '' && ingredientValidationError}
+                  inputProps={{ ...params.inputProps, style: { textAlign: 'right' } }}
+                  label="Ingredient"
+                  variant="standard"
+                />
+              )}
+              onInputChange={(_: React.SyntheticEvent, value: string) => {
+                setIngredient(value)
+                handleIngredientChange(value)
+              }}
+              sx={{ flex: 1 }}
             />
             <Close />
             <TextField
@@ -61,6 +73,7 @@ export const AddIngredientDialog: React.FC<Props> = ({ showDialog, setShowDialog
               variant="standard"
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setQuantity(e.target.value)}
               onKeyDown={handleKeyDown}
+              sx={{ flex: 1 }}
             />
           </Stack>
           <LocalizationProvider dateAdapter={DateAdapter}>

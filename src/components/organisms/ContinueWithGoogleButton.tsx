@@ -1,6 +1,6 @@
 import { CircularProgress } from '@mui/material'
 import GoogleButton from 'react-google-button'
-import { useGoogleSignIn } from 'hooks'
+import { useGoogleSignIn } from './hooks'
 
 export const ContinueWithGoogleButton: React.FC = () => {
   const { isLoading, googleSignIn } = useGoogleSignIn()

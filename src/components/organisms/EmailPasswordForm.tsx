@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Button, Stack, Typography } from '@mui/material'
-import { useEmailPasswordAuth } from 'hooks'
+import { useEmailPasswordAuth } from './hooks'
 import { PasswordAndConfirmationForm, SingleLineForm } from 'components/molecules'
 
 export const EmailPasswordForm: React.FC = () => {

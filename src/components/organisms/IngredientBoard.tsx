@@ -1,13 +1,17 @@
-import { useRecoilValue } from 'recoil'
+import { Skeleton } from '@mui/material'
 import { AddIngredientSuggestion, IngredientCardGridList } from 'components/molecules'
-import { ingredientsState } from 'states/pantry/atom'
+import { useIngredients } from './hooks/useIngredients'
 
 type Props = {
   setShowDialog: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const IngredientBoard: React.FC<Props> = ({ setShowDialog }) => {
-  const ingredients = useRecoilValue(ingredientsState)
+  const { isLoading, ingredients } = useIngredients()
+
+  if (isLoading) {
+    return <Skeleton height={200} width={200} />
+  }
 
   if (ingredients.length > 0) {
     return <IngredientCardGridList ings={ingredients} />

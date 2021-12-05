@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { push, ref } from '@firebase/database'
 import { ingredientsState } from 'states/pantry/atom'
-import { auth, db } from 'lib/firebase'
+import { useDatabasePaths } from 'hooks'
+import { db } from 'lib/firebase'
 
 export const useAddIngredient = (setShowDialog: React.Dispatch<React.SetStateAction<boolean>>) => {
   const [ingredient, setIngredient] = useState('')
@@ -12,6 +13,7 @@ export const useAddIngredient = (setShowDialog: React.Dispatch<React.SetStateAct
   const [ingredientValidationError, setIngredientValidationError] = useState('')
   const [quantityValidationError, setQuantityValidationError] = useState('')
   const setIngredients = useSetRecoilState(ingredientsState)
+  const { pantryPath } = useDatabasePaths()
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
@@ -54,12 +56,7 @@ export const useAddIngredient = (setShowDialog: React.Dispatch<React.SetStateAct
   }
 
   const addToDatabase = (data: Ingredient) => {
-    const uid = auth.currentUser?.uid
-    if (uid === undefined) {
-      return
-    }
-
-    push(ref(db, `pantries/${uid}`), data)
+    push(ref(db, pantryPath), data)
   }
 
   return {

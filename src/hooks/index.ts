@@ -1,4 +1,5 @@
 export { useAuthState } from './useAuthState'
+export { useDatabasePaths } from './useDatabasePaths'
 export { useEmailPasswordAuth } from './useEmailPasswordAuth'
 export { useGoogleSignIn } from './useGoogleSignIn'
 export { useSignOutHandler } from './useSignOutHandler'

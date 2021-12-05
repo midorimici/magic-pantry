@@ -1,5 +1,8 @@
-import { Skeleton } from '@mui/material'
-import { AddIngredientSuggestion, IngredientCardGridList } from 'components/molecules'
+import {
+  AddIngredientSuggestion,
+  IngredientCardGridList,
+  IngredientCardSkeleton,
+} from 'components/molecules'
 import { useIngredients } from './hooks/useIngredients'
 
 type Props = {
@@ -10,7 +13,7 @@ export const IngredientBoard: React.FC<Props> = ({ setShowDialog }) => {
   const { isLoading, ingredients } = useIngredients()
 
   if (isLoading) {
-    return <Skeleton height={200} width={200} />
+    return <IngredientCardSkeleton />
   }
 
   if (ingredients.length > 0) {

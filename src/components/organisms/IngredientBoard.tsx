@@ -1,7 +1,5 @@
 import { useRecoilValue } from 'recoil'
-import { Button, Stack, Typography } from '@mui/material'
-import { Add } from '@mui/icons-material'
-import { IngredientCardGridList } from 'components/molecules'
+import { AddIngredientSuggestion, IngredientCardGridList } from 'components/molecules'
 import { ingredientsState } from 'states/pantry/atom'
 
 type Props = {
@@ -15,12 +13,5 @@ export const IngredientBoard: React.FC<Props> = ({ setShowDialog }) => {
     return <IngredientCardGridList ings={ingredients} />
   }
 
-  return (
-    <Stack alignItems="center" gap={2} justifyContent="center" sx={{ height: '80vh' }}>
-      <Typography>{`You don't have any ingredients yet.`}</Typography>
-      <Button startIcon={<Add />} variant="contained" onClick={() => setShowDialog(true)}>
-        Add ingredients
-      </Button>
-    </Stack>
-  )
+  return <AddIngredientSuggestion setShowDialog={setShowDialog} />
 }

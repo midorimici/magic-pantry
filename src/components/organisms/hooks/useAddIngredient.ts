@@ -35,7 +35,7 @@ export const useAddIngredient = () => {
     const registeredData: Ingredient = {
       name: ingredient,
       quantity,
-      date,
+      date: date.toISOString(),
       description,
     }
 

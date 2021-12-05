@@ -1,6 +1,6 @@
 type Ingredient = {
   name: string
   quantity: string
-  date: Date
+  date: string
   description: string
 }

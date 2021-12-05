@@ -16,9 +16,9 @@ export const IngredientBoard: React.FC<Props> = ({ setShowDialog }) => {
     return <IngredientCardSkeleton />
   }
 
-  if (ingredients.length > 0) {
-    return <IngredientCardGridList ings={ingredients} />
+  if (ingredients.length === 0) {
+    return <AddIngredientSuggestion setShowDialog={setShowDialog} />
   }
 
-  return <AddIngredientSuggestion setShowDialog={setShowDialog} />
+  return <IngredientCardGridList ings={ingredients} />
 }

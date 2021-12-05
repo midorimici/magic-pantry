@@ -8,7 +8,7 @@ type Props = {
   setShowDialog: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const AddIngredientRecommendation: React.FC<Props> = ({ setShowDialog }) => {
+export const IngredientBoard: React.FC<Props> = ({ setShowDialog }) => {
   const ingredients = useRecoilValue(ingredientsState)
 
   if (ingredients.length > 0) {

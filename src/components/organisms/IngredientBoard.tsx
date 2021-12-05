@@ -1,3 +1,4 @@
+import { AddFab } from 'components/atoms'
 import {
   AddIngredientSuggestion,
   IngredientCardGridList,
@@ -20,5 +21,10 @@ export const IngredientBoard: React.FC<Props> = ({ setShowDialog }) => {
     return <AddIngredientSuggestion setShowDialog={setShowDialog} />
   }
 
-  return <IngredientCardGridList ings={ingredients} />
+  return (
+    <>
+      <IngredientCardGridList ings={ingredients} />
+      <AddFab onClick={() => setShowDialog(true)} />
+    </>
+  )
 }

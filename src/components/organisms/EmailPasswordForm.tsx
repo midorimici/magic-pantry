@@ -1,6 +1,7 @@
 import { useRef } from 'react'
-import { Button, Stack, Typography } from '@mui/material'
-import { useEmailPasswordAuth } from 'hooks'
+import { Button, CircularProgress, Grow, Link, Stack, Typography } from '@mui/material'
+import { Check } from '@mui/icons-material'
+import { useEmailPasswordAuth, useSendPasswordResetEmailHandler } from './hooks'
 import { PasswordAndConfirmationForm, SingleLineForm } from 'components/molecules'
 
 export const EmailPasswordForm: React.FC = () => {
@@ -25,17 +26,20 @@ export const EmailPasswordForm: React.FC = () => {
     handleSignInButtonClick,
     handleSignUpButtonClick,
   } = useEmailPasswordAuth(emailRef)
+  const { isSending, finishedSending, handleSendEmailClick } = useSendPasswordResetEmailHandler()
 
   const message = `Sign ${showPasswordAndConfirmationForm ? 'up' : 'in'} with ${email}`
 
-  return (
-    <Stack alignSelf="stretch" gap={2}>
-      {showPasswordAndConfirmationForm || showPasswordForm ? (
+  const TopSection = () => {
+    if (showPasswordAndConfirmationForm || showPasswordForm) {
+      return (
         <Stack alignItems="center" direction="row" justifyContent="space-between">
           <Typography>{message}</Typography>
           <Button onClick={handleChangeEmailButtonClick}>Change email</Button>
         </Stack>
-      ) : (
+      )
+    } else {
+      return (
         <SingleLineForm
           buttonDisabled={!emailIsValid}
           buttonLabel="Continue"
@@ -48,7 +52,36 @@ export const EmailPasswordForm: React.FC = () => {
           validationMessage={emailRef.current?.validationMessage}
           value={email}
         />
-      )}
+      )
+    }
+  }
+
+  const SendPasswordResetEmailSection = () => {
+    return (
+      <Stack alignItems="center" direction="row" gap={2}>
+        <Typography>
+          {`Forgot your password? `}
+          <Link
+            component="button"
+            underline="none"
+            variant="body1"
+            onClick={() => handleSendEmailClick(email)}
+          >
+            Send email
+          </Link>
+          {` to reset password.`}
+        </Typography>
+        {isSending && <CircularProgress aria-busy aria-describedby="Sending email" size={16} />}
+        <Grow in={finishedSending}>
+          <Check color="success" />
+        </Grow>
+      </Stack>
+    )
+  }
+
+  return (
+    <Stack alignSelf="stretch" gap={2}>
+      <TopSection />
       {showPasswordAndConfirmationForm && (
         <PasswordAndConfirmationForm
           buttonLabel="Sign Up"
@@ -61,15 +94,18 @@ export const EmailPasswordForm: React.FC = () => {
         />
       )}
       {showPasswordForm && (
-        <SingleLineForm
-          buttonDisabled={password === ''}
-          buttonLabel="Sign In"
-          handleButtonClick={handleSignInButtonClick}
-          handleChange={handlePasswordChange}
-          isLoading={isLoading}
-          type="password"
-          value={password}
-        />
+        <>
+          <SingleLineForm
+            buttonDisabled={password === ''}
+            buttonLabel="Sign In"
+            handleButtonClick={handleSignInButtonClick}
+            handleChange={handlePasswordChange}
+            isLoading={isLoading}
+            type="password"
+            value={password}
+          />
+          <SendPasswordResetEmailSection />
+        </>
       )}
       {errorMessage && <Typography color="red">{errorMessage}</Typography>}
     </Stack>

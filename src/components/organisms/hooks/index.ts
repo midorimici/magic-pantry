@@ -1,3 +1,6 @@
 export { useAddIngredient } from './useAddIngredient'
 export { useAutoSuggestion } from './useAutoSuggestion'
+export { useEmailPasswordAuth } from './useEmailPasswordAuth'
 export { useIngredients } from './useIngredients'
+export { useGoogleSignIn } from './useGoogleSignIn'
+export { useSendPasswordResetEmailHandler } from './useSendPasswordResetEmailHandler'

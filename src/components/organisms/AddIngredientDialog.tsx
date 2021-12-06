@@ -33,8 +33,8 @@ export const AddIngredientDialog: React.FC<Props> = ({ showDialog, setShowDialog
     ingredientValidationError,
     quantityValidationError,
     handleKeyDown,
-    handleRegistration,
-  } = useAddIngredient()
+    handleAddButtonClick,
+  } = useAddIngredient(setShowDialog)
   const { suggestions, handleIngredientChange } = useAutoSuggestion()
 
   return (
@@ -106,7 +106,7 @@ export const AddIngredientDialog: React.FC<Props> = ({ showDialog, setShowDialog
           />
         </Box>
         <Button onClick={() => setShowDialog(false)}>Cancel</Button>
-        <Button type="submit" variant="contained" onClick={handleRegistration}>
+        <Button variant="contained" onClick={() => handleAddButtonClick()}>
           Add
         </Button>
       </DialogActions>

@@ -1,3 +1,3 @@
 export { AddIngredientDialog } from './AddIngredientDialog'
-export { AddIngredientRecommendation } from './AddIngredientRecommendation'
+export { IngredientBoard } from './IngredientBoard'
 export { SignInForm } from './SignInForm'

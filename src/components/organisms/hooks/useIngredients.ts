@@ -23,6 +23,8 @@ export const useIngredients = () => {
                 ings.push(ing)
               }
               setIngredients(ings)
+            } else {
+              setIngredients([])
             }
           })
           .catch((err) => {

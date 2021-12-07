@@ -39,10 +39,9 @@ export const IngredientDialog: React.FC<Props> = ({
     setDescription,
     ingredientValidationError,
     quantityValidationError,
-    handleKeyDown,
     handleAddButtonClick,
     handleUpdateButtonClick,
-  } = useIngredientDialog(mode, onCloseDialog, updateId)
+  } = useIngredientDialog(onCloseDialog, updateId)
   const { suggestions, handleIngredientChange } = useAutoSuggestion()
 
   const title = mode === 'add' ? 'Add ingredients to pantry' : 'Edit ingredient details'
@@ -109,7 +108,6 @@ export const IngredientDialog: React.FC<Props> = ({
               value={quantity}
               variant="standard"
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setQuantity(e.target.value)}
-              onKeyDown={handleKeyDown}
               sx={{ flex: 1 }}
             />
           </Stack>

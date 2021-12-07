@@ -7,11 +7,7 @@ import { db } from 'lib/firebase'
 
 export type Mode = 'add' | 'update'
 
-export const useIngredientDialog = (
-  mode: Mode,
-  handleCloseDialog: () => void,
-  updateId?: string | null
-) => {
+export const useIngredientDialog = (handleCloseDialog: () => void, updateId?: string | null) => {
   const [ingredients, setIngredients] = useRecoilState(ingredientsState)
   const [ingredient, setIngredient] = useState('')
   const [quantity, setQuantity] = useState('')
@@ -30,12 +26,6 @@ export const useIngredientDialog = (
       setDescription(ing.description)
     }
   }, [updateId])
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
-      handleRegistration(mode)
-    }
-  }
 
   const handleAddButtonClick = () => {
     handleRegistration('add')
@@ -111,7 +101,6 @@ export const useIngredientDialog = (
     setDescription,
     ingredientValidationError,
     quantityValidationError,
-    handleKeyDown,
     handleAddButtonClick,
     handleUpdateButtonClick,
   }

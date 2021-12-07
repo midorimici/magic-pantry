@@ -131,8 +131,8 @@ export const IngredientDialog: React.FC<Props> = ({
           />
         </Stack>
       </DialogContent>
-      <DialogActions>
-        <Box sx={{ width: '100%' }}>
+      <Stack direction="row">
+        <Box sx={{ flexGrow: 1, p: 1 }}>
           <Image
             alt="edamam-badge"
             height={40}
@@ -140,9 +140,11 @@ export const IngredientDialog: React.FC<Props> = ({
             width={200}
           />
         </Box>
-        <Button onClick={onCloseDialog}>Cancel</Button>
-        <ActionButtons />
-      </DialogActions>
+        <DialogActions>
+          <Button onClick={onCloseDialog}>Cancel</Button>
+          <ActionButtons />
+        </DialogActions>
+      </Stack>
     </Dialog>
   )
 }

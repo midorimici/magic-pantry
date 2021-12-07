@@ -4,3 +4,5 @@ type Ingredient = {
   date: string
   description: string
 }
+
+type Ingredients = Record<string, Ingredient>

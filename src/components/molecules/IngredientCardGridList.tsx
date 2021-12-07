@@ -2,15 +2,16 @@ import { Grid } from '@mui/material'
 import { IngredientCard } from 'components/atoms'
 
 type Props = {
-  ings: Ingredient[]
+  ings: Ingredients
+  onCardClick: (id: string) => void
 }
 
-export const IngredientCardGridList: React.FC<Props> = ({ ings }) => {
+export const IngredientCardGridList: React.FC<Props> = ({ ings, onCardClick }) => {
   return (
     <Grid container spacing={2}>
-      {ings.map((ing: Ingredient, index: number) => (
-        <Grid key={index} item xs={3}>
-          <IngredientCard ing={ing} />
+      {Object.entries(ings).map(([key, ing]: [string, Ingredient]) => (
+        <Grid key={key} item xs={3}>
+          <IngredientCard id={key} ing={ing} onClick={onCardClick} />
         </Grid>
       ))}
     </Grid>

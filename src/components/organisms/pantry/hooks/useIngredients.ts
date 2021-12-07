@@ -17,14 +17,10 @@ export const useIngredients = () => {
         await get(ref(db, pantryPath))
           .then((snapshot: DataSnapshot) => {
             if (snapshot.exists()) {
-              const data: Record<string, Ingredient> = snapshot.val()
-              const ings: Ingredient[] = []
-              for (const ing of Object.values(data)) {
-                ings.push(ing)
-              }
-              setIngredients(ings)
+              const data: Ingredients = snapshot.val()
+              setIngredients(data)
             } else {
-              setIngredients([])
+              setIngredients({})
             }
           })
           .catch((err) => {

@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
 
-export const ingredientsState = atom<Ingredient[]>({
+export const ingredientsState = atom<Ingredients>({
   key: 'ingredients',
-  default: [],
+  default: {},
 })

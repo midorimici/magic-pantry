@@ -4,9 +4,11 @@ import { SignInForm } from 'components/organisms/sign-in'
 
 export const SignIn: React.FC<HeaderProps> = (props) => {
   return (
-    <Container {...props}>
+    <>
       <Meta title="Sign In" />
-      <SignInForm />
-    </Container>
+      <Container {...props}>
+        <SignInForm />
+      </Container>
+    </>
   )
 }

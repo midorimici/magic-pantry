@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { push, ref } from '@firebase/database'
 import { ingredientsState } from 'states/pantry/atom'
@@ -10,16 +10,26 @@ export type Mode = 'add' | 'update'
 export const useIngredientDialog = (
   mode: Mode,
   handleCloseDialog: () => void,
-  updateId?: string
+  updateId?: string | null
 ) => {
   const [ingredients, setIngredients] = useRecoilState(ingredientsState)
-  const [ingredient, setIngredient] = useState(updateId ? ingredients[updateId].name : '')
-  const [quantity, setQuantity] = useState(updateId ? ingredients[updateId].quantity : '')
-  const [date, setDate] = useState(updateId ? new Date(ingredients[updateId].date) : new Date())
-  const [description, setDescription] = useState(updateId ? ingredients[updateId].description : '')
+  const [ingredient, setIngredient] = useState('')
+  const [quantity, setQuantity] = useState('')
+  const [date, setDate] = useState(new Date())
+  const [description, setDescription] = useState('')
   const [ingredientValidationError, setIngredientValidationError] = useState('')
   const [quantityValidationError, setQuantityValidationError] = useState('')
   const { pantryPath } = useDatabasePaths()
+
+  useEffect(() => {
+    if (updateId) {
+      const ing = ingredients[updateId]
+      setIngredient(ing.name)
+      setQuantity(ing.quantity)
+      setDate(new Date(ing.date))
+      setDescription(ing.description)
+    }
+  }, [updateId])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
@@ -32,13 +42,11 @@ export const useIngredientDialog = (
     handleCloseDialog()
   }
 
-  const handleUpdateButtonClick = (updateId?: string) => {
-    if (updateId === undefined) {
-      return
+  const handleUpdateButtonClick = (updateId?: string | null) => {
+    if (updateId) {
+      handleRegistration('update', updateId)
+      handleCloseDialog()
     }
-
-    handleRegistration('update', updateId)
-    handleCloseDialog()
   }
 
   const handleRegistration = (mode: Mode, updateId?: string) => {

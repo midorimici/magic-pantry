@@ -17,7 +17,7 @@ import { useAutoSuggestion, useIngredientDialog, Mode } from './hooks'
 
 type Props = {
   mode: Mode
-  updateId?: string
+  updateId?: string | null
   showDialog: boolean
   onCloseDialog: () => void
 }

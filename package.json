@@ -1,5 +1,5 @@
 {
-  "name": "versioning-me",
+  "name": "magic-pantry",
   "private": true,
   "scripts": {
     "dev": "next dev",

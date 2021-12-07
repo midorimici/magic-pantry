@@ -41,6 +41,7 @@ export const IngredientDialog: React.FC<Props> = ({
     quantityValidationError,
     handleAddButtonClick,
     handleUpdateButtonClick,
+    handleDeleteButtonClick,
   } = useIngredientDialog(onCloseDialog, updateId)
   const { suggestions, handleIngredientChange } = useAutoSuggestion()
 
@@ -56,7 +57,11 @@ export const IngredientDialog: React.FC<Props> = ({
     } else {
       return (
         <>
-          <Button color="warning" variant="contained" onClick={() => handleAddButtonClick()}>
+          <Button
+            color="warning"
+            variant="contained"
+            onClick={() => handleDeleteButtonClick(updateId)}
+          >
             Delete
           </Button>
           <Button

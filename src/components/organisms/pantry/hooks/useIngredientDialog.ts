@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { push, ref, update } from '@firebase/database'
+import { push, ref, remove, update } from '@firebase/database'
 import { ingredientsState } from 'states/pantry/atom'
 import { useDatabasePaths } from 'hooks'
 import { db } from 'lib/firebase'
@@ -35,6 +35,13 @@ export const useIngredientDialog = (handleCloseDialog: () => void, updateId?: st
   const handleUpdateButtonClick = (updateId?: string | null) => {
     if (updateId) {
       handleRegistration('update', updateId)
+      handleCloseDialog()
+    }
+  }
+
+  const handleDeleteButtonClick = (updateId?: string | null) => {
+    if (updateId) {
+      removeIngredient(updateId)
       handleCloseDialog()
     }
   }
@@ -90,6 +97,18 @@ export const useIngredientDialog = (handleCloseDialog: () => void, updateId?: st
     })
   }
 
+  const removeIngredient = (id: string) => {
+    // Remove ingredient from DB
+    remove(ref(db, `${pantryPath}/${id}`))
+
+    // Remove ingredient from state
+    setIngredients((prev) => {
+      const newIngredients = { ...prev }
+      delete newIngredients[id]
+      return newIngredients
+    })
+  }
+
   return {
     ingredient,
     setIngredient,
@@ -103,5 +122,6 @@ export const useIngredientDialog = (handleCloseDialog: () => void, updateId?: st
     quantityValidationError,
     handleAddButtonClick,
     handleUpdateButtonClick,
+    handleDeleteButtonClick,
   }
 }

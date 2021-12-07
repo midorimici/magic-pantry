@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import {
   Autocomplete,
   Box,
@@ -14,6 +13,7 @@ import { Close } from '@mui/icons-material'
 import { DatePicker, LocalizationProvider } from '@mui/lab'
 import DateAdapter from '@mui/lab/AdapterDateFns'
 import { useAutoSuggestion, useIngredientDialog, Mode } from './hooks'
+import { EdamamBadge } from 'components/atoms'
 
 type Props = {
   mode: Mode
@@ -136,12 +136,7 @@ export const IngredientDialog: React.FC<Props> = ({
       </DialogContent>
       <Stack direction="row">
         <Box sx={{ flexGrow: 1, p: 1 }}>
-          <Image
-            alt="edamam-badge"
-            height={40}
-            src="https://developer.edamam.com/images/transparent.png"
-            width={200}
-          />
+          <EdamamBadge />
         </Box>
         <DialogActions>
           <Button onClick={onCloseDialog}>Cancel</Button>

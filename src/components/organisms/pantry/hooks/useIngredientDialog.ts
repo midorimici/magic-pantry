@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { push, ref } from '@firebase/database'
+import { push, ref, update } from '@firebase/database'
 import { ingredientsState } from 'states/pantry/atom'
 import { useDatabasePaths } from 'hooks'
 import { db } from 'lib/firebase'
@@ -89,7 +89,15 @@ export const useIngredientDialog = (
   }
 
   const updateIngredient = (data: Ingredient, id: string) => {
-    console.info(id, ingredients[id])
+    // Update ingredient in DB
+    update(ref(db), { [`${pantryPath}/${id}`]: data })
+
+    // Update ingredient state
+    setIngredients((prev) => {
+      const newIngredients = { ...prev }
+      newIngredients[id] = data
+      return newIngredients
+    })
   }
 
   return {

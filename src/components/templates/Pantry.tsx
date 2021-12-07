@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Meta } from 'components/atoms'
 import { Container, HeaderProps } from 'components/molecules'
-import { AddIngredientDialog, IngredientBoard } from 'components/organisms'
+import { AddIngredientDialog, IngredientBoard } from 'components/organisms/pantry'
 
 export const Pantry: React.FC<HeaderProps> = (props) => {
   const [showDialog, setShowDialog] = useState(false)

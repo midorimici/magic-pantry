@@ -4,7 +4,7 @@ import {
   IngredientCardGridList,
   IngredientCardSkeleton,
 } from 'components/molecules'
-import { useIngredients } from './hooks/useIngredients'
+import { useIngredients } from './hooks'
 
 type Props = {
   setShowDialog: React.Dispatch<React.SetStateAction<boolean>>

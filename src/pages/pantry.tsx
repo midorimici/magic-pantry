@@ -1,16 +1,16 @@
 import { useRecoilValue } from 'recoil'
 import type { NextPage } from 'next'
-import { SignIn } from 'components/templates'
+import { Pantry } from 'components/templates'
 import { useAuthState, useSignOutHandler } from 'hooks'
 import { authUserState } from 'states/auth/atom'
 
-const SignInPage: NextPage = () => {
+const PantryPage: NextPage = () => {
   const user = useRecoilValue(authUserState)
   const { isLoading, handleSignOut } = useSignOutHandler()
   const { isLoadingAuthState } = useAuthState()
 
   return (
-    <SignIn
+    <Pantry
       isLoading={isLoading || isLoadingAuthState}
       isLoggedIn={user !== null}
       handleSignOutButtonClick={handleSignOut}
@@ -18,4 +18,4 @@ const SignInPage: NextPage = () => {
   )
 }
 
-export default SignInPage
+export default PantryPage

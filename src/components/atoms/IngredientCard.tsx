@@ -17,7 +17,7 @@ export const IngredientCard: React.FC<Props> = ({ id, ing, onClick }) => {
       onClick={() => onClick(id)}
       onMouseOut={() => setIsHovered(false)}
       onMouseOver={() => setIsHovered(true)}
-      sx={{ cursor: 'pointer' }}
+      sx={{ cursor: 'pointer', height: '100%' }}
     >
       <CardContent>
         <Typography>{ing.name}</Typography>

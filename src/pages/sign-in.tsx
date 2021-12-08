@@ -1,21 +1,9 @@
-import { useRecoilValue } from 'recoil'
 import type { NextPage } from 'next'
+import type { HeaderProps } from 'components/molecules'
 import { SignIn } from 'components/templates'
-import { useAuthState, useSignOutHandler } from 'hooks'
-import { authUserState } from 'states/auth/atom'
 
-const SignInPage: NextPage = () => {
-  const user = useRecoilValue(authUserState)
-  const { isLoading, handleSignOut } = useSignOutHandler()
-  const { isLoadingAuthState } = useAuthState()
-
-  return (
-    <SignIn
-      isLoading={isLoading || isLoadingAuthState}
-      isLoggedIn={user !== null}
-      handleSignOutButtonClick={handleSignOut}
-    />
-  )
+const SignInPage: NextPage<HeaderProps> = (props) => {
+  return <SignIn {...props} />
 }
 
 export default SignInPage

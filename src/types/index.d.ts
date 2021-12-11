@@ -35,3 +35,11 @@ type Recipe = {
   unusedIngredients: IngredientResponse[]
   likes: number
 }
+
+type RecipeDetail = {
+  title: string
+  image: string
+  sourceUrl: string
+  spoonacularSourceUrl: string
+  summary: string
+}

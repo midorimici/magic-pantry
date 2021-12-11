@@ -7,7 +7,7 @@ export const RecipeBoard: React.FC = () => {
   const { recipes, error } = useRecipes()
 
   if (error) {
-    return <Typography color="red">{error.statusText}</Typography>
+    return <Typography color="red">{error.message}</Typography>
   }
 
   if (recipes === undefined) {

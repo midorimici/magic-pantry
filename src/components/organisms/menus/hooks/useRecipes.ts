@@ -5,12 +5,24 @@ import useSWR from 'swr'
 const spoonacularAppKey = process.env.NEXT_PUBLIC_SPOONACULAR_APP_KEY
 const baseURL = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${spoonacularAppKey}&ranking=2&number=12`
 
+const fetcher = async (url: string) => {
+  const res = await fetch(url)
+
+  if (!res.ok) {
+    const error = new Error('An error occurred while fetching the data.')
+    error.message = (await res.json()).message
+    throw error
+  }
+
+  return res.json()
+}
+
 export const useRecipes = () => {
   const [ingNames, setIngNames] = useState('')
   const { ingredients } = useIngredients()
-  const { data, error } = useSWR<Recipe[], Response>(
+  const { data, error } = useSWR<Recipe[], Error>(
     ingNames && `${baseURL}&ingredients=${ingNames}`,
-    (url: string) => fetch(url).then((res: Response) => res.json())
+    fetcher
   )
 
   useEffect(() => {

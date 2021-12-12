@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Button, Typography } from '@mui/material'
 
 export type HeaderContentsProps = {
@@ -8,17 +9,23 @@ export type HeaderContentsProps = {
   handleSignOutButtonClick: () => void
 }
 
+const style = {
+  borderBottom: 'solid 2px',
+}
+
 export const HeaderContents: React.FC<HeaderContentsProps> = ({
   isLoggedIn,
   handleSignOutButtonClick,
 }) => {
+  const router = useRouter()
+
   if (isLoggedIn) {
     return (
       <>
-        <Typography variant="button">
+        <Typography variant="button" sx={router.pathname === '/pantry' ? style : undefined}>
           <Link href="/pantry">Pantry</Link>
         </Typography>
-        <Typography variant="button">
+        <Typography variant="button" sx={router.pathname === '/menus' ? style : undefined}>
           <Link href="/menus">Menus</Link>
         </Typography>
         <Button onClick={handleSignOutButtonClick} sx={{ color: 'white' }}>

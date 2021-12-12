@@ -19,11 +19,26 @@ export const RecipeBoard: React.FC = () => {
     return <CardGridListSkeleton />
   }
 
+  const recipeSelected = recipes.find((recipe: Recipe) => recipe.id === recipeInfo?.id)
+  const missedIngs = recipeSelected?.missedIngredients.map((ing: IngredientResponse) => ({
+    id: ing.id,
+    name: ing.name,
+  }))
+  const usedIngs = recipeSelected?.usedIngredients.map((ing: IngredientResponse) => ({
+    id: ing.id,
+    name: ing.name,
+  }))
+
   return (
     <>
       <RecipeCardGridList recipes={recipes} onRecipeClick={handleRecipeClick} />
       <SpoonacularBacklink />
-      <RecipeDetailsDialog recipe={recipeInfo} onCloseDialog={resetRecipe} />
+      <RecipeDetailsDialog
+        missed={missedIngs}
+        recipe={recipeInfo}
+        used={usedIngs}
+        onCloseDialog={resetRecipe}
+      />
     </>
   )
 }

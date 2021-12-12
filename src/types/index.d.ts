@@ -37,6 +37,7 @@ type Recipe = {
 }
 
 type RecipeDetail = {
+  id: number
   title: string
   image: string
   sourceUrl: string

@@ -1,5 +1,5 @@
 import { RecoilRoot, useRecoilValue } from 'recoil'
-import '../styles/globals.css'
+import 'styles/globals.css'
 import type { NextComponentType, NextPageContext } from 'next'
 import type { AppProps } from 'next/app'
 import { createTheme, ThemeProvider } from '@mui/material'

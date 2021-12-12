@@ -1,0 +1,1 @@
+export { RecipeBoard } from './RecipeBoard'

@@ -2,9 +2,10 @@ import { AddFab } from 'components/atoms'
 import {
   AddIngredientSuggestion,
   IngredientCardGridList,
-  IngredientCardSkeleton,
+  CardGridListSkeleton,
 } from 'components/molecules'
-import { useCardClickEventHandler, useIngredients } from './hooks'
+import { useIngredients } from 'hooks'
+import { useCardClickEventHandler } from './hooks'
 
 type Props = {
   setShowAddDialog: React.Dispatch<React.SetStateAction<boolean>>
@@ -16,7 +17,7 @@ export const IngredientBoard: React.FC<Props> = ({ setShowAddDialog, setVisibleE
   const { handleCardClick } = useCardClickEventHandler(setVisibleEditDialogId)
 
   if (isLoading) {
-    return <IngredientCardSkeleton />
+    return <CardGridListSkeleton />
   }
 
   if (Object.keys(ingredients).length === 0) {

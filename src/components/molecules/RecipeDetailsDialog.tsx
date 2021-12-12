@@ -2,7 +2,9 @@ import Image from 'next/image'
 import {
   Dialog,
   DialogContent,
+  DialogContentText,
   DialogTitle,
+  Link,
   List,
   ListItem,
   ListItemIcon,
@@ -31,6 +33,16 @@ export const RecipeDetailsDialog: React.FC<Props> = ({ missed, used, recipe, onC
           <Image alt={recipe.title} height={360} src={recipe.image} width={600} />
           <DialogTitle>{recipe.title}</DialogTitle>
           <DialogContent>
+            <DialogContentText>
+              from{' '}
+              <Link
+                href={recipe.sourceUrl || recipe.spoonacularSourceUrl}
+                target="_blank"
+                rel="noopener"
+              >
+                {recipe.sourceName || 'unknown'}
+              </Link>
+            </DialogContentText>
             <List>
               {used &&
                 used.map((ing: Ing) => (

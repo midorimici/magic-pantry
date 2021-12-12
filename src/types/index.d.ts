@@ -40,6 +40,7 @@ type RecipeDetail = {
   id: number
   title: string
   image: string
+  sourceName: string
   sourceUrl: string
   spoonacularSourceUrl: string
   summary: string

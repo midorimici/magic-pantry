@@ -6,7 +6,7 @@ type Props = {
 
 export const PageTitle: React.FC<Props> = ({ title }) => {
   return (
-    <Typography gutterBottom variant="h4">
+    <Typography fontFamily={['cursive']} gutterBottom variant="h4">
       {title}
     </Typography>
   )

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Meta } from 'components/atoms'
+import { Meta, PageTitle } from 'components/atoms'
 import { Container, HeaderProps } from 'components/molecules'
 import {
   AddIngredientDialog,
@@ -15,6 +15,7 @@ export const Pantry: React.FC<HeaderProps> = (props) => {
     <>
       <Meta title="Pantry" />
       <Container {...props}>
+        <PageTitle title="Pantry" />
         <IngredientBoard
           setShowAddDialog={setShowAddDialog}
           setVisibleEditDialogId={setVisibleEditDialogId}

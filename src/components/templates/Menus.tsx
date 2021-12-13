@@ -5,9 +5,9 @@ import { RecipeBoard } from 'components/organisms/menus'
 export const Menus: React.FC<HeaderProps> = (props) => {
   return (
     <>
-      <Meta title="Menus" />
+      <Meta title="🥘 Menus" />
       <Container {...props}>
-        <PageTitle title="Menus" />
+        <PageTitle title="🥘 Menus" />
         <RecipeBoard />
       </Container>
     </>

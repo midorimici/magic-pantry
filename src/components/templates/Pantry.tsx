@@ -13,9 +13,9 @@ export const Pantry: React.FC<HeaderProps> = (props) => {
 
   return (
     <>
-      <Meta title="Pantry" />
+      <Meta title="🥬 Pantry" />
       <Container {...props}>
-        <PageTitle title="Pantry" />
+        <PageTitle title="🥬 Pantry" />
         <IngredientBoard
           setShowAddDialog={setShowAddDialog}
           setVisibleEditDialogId={setVisibleEditDialogId}

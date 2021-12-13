@@ -12,7 +12,6 @@ export const useAuthState = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setAuthUser(user)
-        // router.push('/')
       } else {
         setAuthUser(null)
       }

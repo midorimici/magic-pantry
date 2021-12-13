@@ -2,11 +2,13 @@ import { RecoilRoot, useRecoilValue } from 'recoil'
 import 'styles/globals.css'
 import type { NextComponentType, NextPageContext } from 'next'
 import type { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { lightGreen } from '@mui/material/colors'
 import type { HeaderProps } from 'components/molecules'
 import { useAuthState, useSignOutHandler } from 'hooks'
 import { authUserState } from 'states/auth/atom'
+import { useEffect } from 'react'
 
 const theme = createTheme({
   palette: {
@@ -24,6 +26,22 @@ const PageContainer: React.FC<PageContainerProps> = ({ component: Component }) =
   const user = useRecoilValue(authUserState)
   const { isLoading, handleSignOut } = useSignOutHandler()
   const { isLoadingAuthState } = useAuthState()
+  const router = useRouter()
+
+  useEffect(() => {
+    const path = router.pathname
+    if (user === null) {
+      // When user is not signed in
+      if (!isLoading && !isLoadingAuthState && (path === '/pantry' || path === '/menus')) {
+        router.push('/sign-in')
+      }
+    } else {
+      // When user is signed in
+      if (path === '/sign-in') {
+        router.push('/pantry')
+      }
+    }
+  }, [isLoading, isLoadingAuthState, user, router])
 
   return (
     <Component

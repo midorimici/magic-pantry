@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useResetRecoilState } from 'recoil'
+import { useRouter } from 'next/router'
 import { signOut, AuthError } from '@firebase/auth'
 import { auth } from 'lib/firebase'
 import { loadingHandler } from 'lib/loadingHandler'
@@ -10,6 +11,7 @@ export const useSignOutHandler = () => {
   const [isLoading, setIsLoading] = useState(false)
   const resetUser = useResetRecoilState(authUserState)
   const resetIngredients = useResetRecoilState(ingredientsState)
+  const router = useRouter()
 
   const resetStates = () => {
     resetUser()
@@ -23,7 +25,10 @@ export const useSignOutHandler = () => {
 
     loadingHandler(setIsLoading, async () => {
       await signOut(auth)
-        .then(() => resetStates())
+        .then(() => {
+          resetStates()
+          router.push('/')
+        })
         .catch((err: AuthError) => {
           console.error(`Sign out failed: ${err.code} ${err.message} ${err.stack}`)
         })

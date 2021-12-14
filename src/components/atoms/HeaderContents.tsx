@@ -23,10 +23,14 @@ export const HeaderContents: React.FC<HeaderContentsProps> = ({
     return (
       <>
         <Typography variant="button" sx={router.pathname === '/pantry' ? style : undefined}>
-          <Link href="/pantry">Pantry</Link>
+          <Link href="/pantry">
+            <a>Pantry</a>
+          </Link>
         </Typography>
         <Typography variant="button" sx={router.pathname === '/menus' ? style : undefined}>
-          <Link href="/menus">Menus</Link>
+          <Link href="/menus">
+            <a>Menus</a>
+          </Link>
         </Typography>
         <Button onClick={handleSignOutButtonClick} sx={{ color: 'white' }}>
           Sign out
@@ -37,7 +41,9 @@ export const HeaderContents: React.FC<HeaderContentsProps> = ({
 
   return (
     <Typography variant="button">
-      <Link href="/sign-in">Sign In</Link>
+      <Link href="/sign-in">
+        <a>Sign In</a>
+      </Link>
     </Typography>
   )
 }

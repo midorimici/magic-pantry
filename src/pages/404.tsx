@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
-import Link from 'next/link'
+import NextLink from 'next/link'
+import { Link } from '@mui/material'
 import { Meta, PageTitle } from 'components/atoms'
 import { Container, HeaderProps } from 'components/molecules'
 
@@ -9,7 +10,9 @@ const NotFound: NextPage<HeaderProps> = (props) => {
       <Meta title="😔 404 - Not Found" />
       <Container {...props}>
         <PageTitle title="😔 404 - Not Found" />
-        <Link href="/">→ Back to home</Link>
+        <NextLink href="/" passHref>
+          <Link>→ Back to home</Link>
+        </NextLink>
       </Container>
     </>
   )

@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({
             </a>
           </Link>
         </Box>
-        <Stack alignItems="center" direction="row" gap={4} justifyContent="flex-end">
+        <Stack alignItems="center" direction="row" gap={{ xs: 2, sm: 4 }} justifyContent="flex-end">
           {isLoading ? (
             <Skeleton width="20%" sx={{ bgcolor: 'primary.light' }} />
           ) : (

@@ -10,7 +10,7 @@ export const AddFab: React.FC<Props> = ({ onClick }) => {
     <Fab
       color="primary"
       aria-label="add ingredient"
-      sx={{ position: 'absolute', bottom: '2rem', right: '2rem' }}
+      sx={{ position: 'fixed', bottom: '2rem', right: '2rem' }}
       onClick={onClick}
     >
       <Add />

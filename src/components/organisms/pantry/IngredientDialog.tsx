@@ -80,7 +80,7 @@ export const IngredientDialog: React.FC<Props> = ({
     <Dialog open={showDialog} onClose={onCloseDialog}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <Stack gap={4} sx={{ width: '30rem' }}>
+        <Stack gap={4}>
           <Stack alignItems="center" direction="row" gap={1}>
             <Autocomplete
               disableClearable
@@ -134,7 +134,7 @@ export const IngredientDialog: React.FC<Props> = ({
           />
         </Stack>
       </DialogContent>
-      <Stack direction="row">
+      <Stack direction={{ xs: 'column', sm: 'row' }}>
         <Box sx={{ flexGrow: 1, p: 1 }}>
           <EdamamBadge />
         </Box>

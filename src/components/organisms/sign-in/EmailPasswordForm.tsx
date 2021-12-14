@@ -33,7 +33,11 @@ export const EmailPasswordForm: React.FC = () => {
   const TopSection = () => {
     if (showPasswordAndConfirmationForm || showPasswordForm) {
       return (
-        <Stack alignItems="center" direction="row" justifyContent="space-between">
+        <Stack
+          alignItems="center"
+          direction={{ xs: 'column', sm: 'row' }}
+          justifyContent="space-between"
+        >
           <Typography>{message}</Typography>
           <Button onClick={handleChangeEmailButtonClick}>Change email</Button>
         </Stack>

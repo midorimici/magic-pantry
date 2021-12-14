@@ -40,7 +40,7 @@ const SingleLineForm: React.ForwardRefRenderFunction<HTMLTextAreaElement, Props>
 
   return (
     <form>
-      <Stack alignItems="stretch" direction="row" gap={2}>
+      <Stack alignItems="stretch" direction={{ xs: 'column', sm: 'row' }} gap={2}>
         <TextField
           autoFocus
           error={validationError}

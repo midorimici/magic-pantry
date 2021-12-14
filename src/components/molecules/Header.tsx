@@ -1,4 +1,6 @@
-import { AppBar, Skeleton, Toolbar } from '@mui/material'
+import Image from 'next/image'
+import Link from 'next/link'
+import { AppBar, Box, Skeleton, Stack, Toolbar } from '@mui/material'
 import { HeaderContents, HeaderContentsProps } from 'components/atoms'
 
 export type HeaderProps = {
@@ -13,15 +15,24 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <AppBar position="sticky" elevation={0}>
-      <Toolbar sx={{ justifyContent: 'flex-end', gap: 4 }}>
-        {isLoading ? (
-          <Skeleton width="20%" sx={{ bgcolor: 'primary.light' }} />
-        ) : (
-          <HeaderContents
-            isLoggedIn={isLoggedIn}
-            handleSignOutButtonClick={handleSignOutButtonClick}
-          />
-        )}
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Box sx={{ cursor: 'pointer' }}>
+          <Link href="/">
+            <a>
+              <Image alt="logo" height={32} src="/logo.svg" width={32} />
+            </a>
+          </Link>
+        </Box>
+        <Stack alignItems="center" direction="row" gap={4} justifyContent="flex-end">
+          {isLoading ? (
+            <Skeleton width="20%" sx={{ bgcolor: 'primary.light' }} />
+          ) : (
+            <HeaderContents
+              isLoggedIn={isLoggedIn}
+              handleSignOutButtonClick={handleSignOutButtonClick}
+            />
+          )}
+        </Stack>
       </Toolbar>
     </AppBar>
   )

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Image from 'next/image'
 import { Card, CardContent, CardMedia, Typography } from '@mui/material'
 
 type Props = {
@@ -17,7 +18,9 @@ export const RecipeCard: React.FC<Props> = ({ recipe, onClick }) => {
       onMouseOver={() => setIsHovered(true)}
       sx={{ cursor: 'pointer', height: '100%' }}
     >
-      <CardMedia alt={recipe.title} component="img" image={recipe.image} />
+      <CardMedia
+        component={() => <Image alt={recipe.title} height={150} src={recipe.image} width={201} />}
+      />
       <CardContent>
         <Typography>{recipe.title}</Typography>
       </CardContent>

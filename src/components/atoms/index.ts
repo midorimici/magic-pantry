@@ -1,4 +1,6 @@
 export { AddFab } from './AddFab'
+export { DrawerLarge } from './DrawerLarge'
+export { DrawerSmall } from './DrawerSmall'
 export { EdamamBadge } from './EdamamBadge'
 export { HeaderContents } from './HeaderContents'
 export type { HeaderContentsProps } from './HeaderContents'

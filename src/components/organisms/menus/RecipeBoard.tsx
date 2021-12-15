@@ -32,7 +32,6 @@ export const RecipeBoard: React.FC = () => {
   return (
     <>
       <RecipeCardGridList recipes={recipes} onRecipeClick={handleRecipeClick} />
-      <SpoonacularBacklink />
       <RecipeDetailsDialog
         missed={missedIngs}
         recipe={recipeInfo}

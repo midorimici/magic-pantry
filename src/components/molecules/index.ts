@@ -1,7 +1,4 @@
 export { AddIngredientSuggestion } from './AddIngredientSuggestion'
-export { Cont as Container } from './Container'
-export { Header } from './Header'
-export type { HeaderProps } from './Header'
 export { IngredientCardGridList } from './IngredientCardGridList'
 export { CardGridListSkeleton } from './CardGridListSkeleton'
 export { SingleLineFormWithRef as SingleLineForm } from './SingleLineForm'

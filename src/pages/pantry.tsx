@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import type { HeaderProps } from 'components/molecules'
+import type { HeaderProps } from 'components/organisms/container'
 import { Pantry } from 'components/templates'
 
 const PantryPage: NextPage<HeaderProps> = (props) => {

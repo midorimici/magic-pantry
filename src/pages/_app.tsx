@@ -32,7 +32,7 @@ const PageContainer: React.FC<PageContainerProps> = ({ component: Component }) =
     const path = router.pathname
     if (user === null) {
       // When user is not signed in
-      if (!isLoading && !isLoadingAuthState && (path === '/pantry' || path === '/menus')) {
+      if (!isLoading && !isLoadingAuthState && path !== '/' && path !== '/sign-in') {
         router.push('/sign-in')
       }
     } else {

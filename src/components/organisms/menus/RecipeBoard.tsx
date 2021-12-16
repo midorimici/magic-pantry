@@ -1,6 +1,5 @@
 import { Typography } from '@mui/material'
-import { SpoonacularBacklink } from 'components/atoms'
-import { CardGridListSkeleton, RecipeCardGridList, RecipeDetailsDialog } from 'components/molecules'
+import { CardGridListSkeleton, RecipeCardGridList, RecipeDetailsDrawer } from 'components/molecules'
 import { useRecipeDetails, useRecipes } from './hooks'
 
 export const RecipeBoard: React.FC = () => {
@@ -32,11 +31,11 @@ export const RecipeBoard: React.FC = () => {
   return (
     <>
       <RecipeCardGridList recipes={recipes} onRecipeClick={handleRecipeClick} />
-      <RecipeDetailsDialog
+      <RecipeDetailsDrawer
         missed={missedIngs}
         recipe={recipeInfo}
         used={usedIngs}
-        onCloseDialog={resetRecipe}
+        onCloseDrawer={resetRecipe}
       />
     </>
   )

@@ -1,17 +1,18 @@
 import Image from 'next/image'
 import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
+  Box,
+  CardContent,
+  CardMedia,
   Link,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  Toolbar,
   Typography,
 } from '@mui/material'
 import { Cancel, CheckCircle } from '@mui/icons-material'
+import { DrawerLarge, DrawerSmall } from 'components/atoms'
 
 type Ing = {
   id: number
@@ -22,18 +23,22 @@ type Props = {
   missed?: Ing[]
   used?: Ing[]
   recipe?: RecipeDetail
-  onCloseDialog: () => void
+  onCloseDrawer: () => void
 }
 
-export const RecipeDetailsDialog: React.FC<Props> = ({ missed, used, recipe, onCloseDialog }) => {
-  return (
-    <Dialog open={recipe !== undefined} onClose={onCloseDialog}>
-      {recipe && (
-        <>
-          <Image alt={recipe.title} height={360} src={recipe.image} width={600} />
-          <DialogTitle>{recipe.title}</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
+export const RecipeDetailsDrawer: React.FC<Props> = ({ missed, used, recipe, onCloseDrawer }) => {
+  const DrawerContents = () => {
+    if (recipe) {
+      return (
+        <Box>
+          <CardMedia
+            component={() => (
+              <Image alt={recipe.title} height={360} src={recipe.image} width={600} />
+            )}
+          />
+          <CardContent>
+            <Typography variant="h6">{recipe.title}</Typography>
+            <Typography>
               from{' '}
               <Link
                 href={recipe.sourceUrl || recipe.spoonacularSourceUrl}
@@ -42,7 +47,7 @@ export const RecipeDetailsDialog: React.FC<Props> = ({ missed, used, recipe, onC
               >
                 {recipe.sourceName || 'unknown'}
               </Link>
-            </DialogContentText>
+            </Typography>
             <List>
               {used &&
                 used.map((ing: Ing) => (
@@ -66,9 +71,23 @@ export const RecipeDetailsDialog: React.FC<Props> = ({ missed, used, recipe, onC
             <Typography variant="body2">
               <span dangerouslySetInnerHTML={{ __html: recipe.summary }} />
             </Typography>
-          </DialogContent>
-        </>
-      )}
-    </Dialog>
+          </CardContent>
+        </Box>
+      )
+    }
+
+    return null
+  }
+
+  return (
+    <>
+      <DrawerLarge>
+        <Toolbar sx={{ bgcolor: 'primary.main' }} />
+        <DrawerContents />
+      </DrawerLarge>
+      <DrawerSmall open={recipe !== undefined} onCloseDrawer={onCloseDrawer}>
+        <DrawerContents />
+      </DrawerSmall>
+    </>
   )
 }

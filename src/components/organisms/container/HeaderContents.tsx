@@ -1,6 +1,7 @@
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { Button, Typography } from '@mui/material'
+import { Button, Divider, Link, Menu, MenuItem, Typography } from '@mui/material'
+import { useAccountMenuHandlers } from './hooks'
 
 export type HeaderContentsProps = {
   /** User is logging in */
@@ -19,31 +20,67 @@ export const HeaderContents: React.FC<HeaderContentsProps> = ({
 }) => {
   const router = useRouter()
 
+  const { anchorEl, handleAccountButtonClick, handleCloseMenu } = useAccountMenuHandlers()
+
+  const AccountMenu = () => {
+    return (
+      <Menu
+        id="account-menu"
+        anchorEl={anchorEl}
+        open={!!anchorEl}
+        onClose={handleCloseMenu}
+        MenuListProps={{
+          'aria-labelledby': 'account-button',
+        }}
+      >
+        <MenuItem>
+          <NextLink href="/account" passHref>
+            <Link color="inherit" underline="none">
+              Account settings
+            </Link>
+          </NextLink>
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleSignOutButtonClick} sx={{ color: 'secondary.main' }}>
+          Sign out
+        </MenuItem>
+      </Menu>
+    )
+  }
+
   if (isLoggedIn) {
     return (
       <>
         <Typography variant="button" sx={router.pathname === '/pantry' ? style : undefined}>
-          <Link href="/pantry">
+          <NextLink href="/pantry">
             <a>Pantry</a>
-          </Link>
+          </NextLink>
         </Typography>
         <Typography variant="button" sx={router.pathname === '/menus' ? style : undefined}>
-          <Link href="/menus">
+          <NextLink href="/menus">
             <a>Menus</a>
-          </Link>
+          </NextLink>
         </Typography>
-        <Button onClick={handleSignOutButtonClick} sx={{ color: 'white' }}>
-          Sign out
+        <Button
+          id="account-button"
+          aria-controls="account-menu"
+          aria-haspopup
+          aria-expanded={!!anchorEl ? true : undefined}
+          onClick={handleAccountButtonClick}
+          sx={{ color: 'white' }}
+        >
+          Account
         </Button>
+        <AccountMenu />
       </>
     )
   }
 
   return (
     <Typography variant="button">
-      <Link href="/sign-in">
+      <NextLink href="/sign-in">
         <a>Sign In</a>
-      </Link>
+      </NextLink>
     </Typography>
   )
 }

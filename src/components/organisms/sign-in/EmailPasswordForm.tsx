@@ -2,10 +2,19 @@ import { useRef } from 'react'
 import { Button, CircularProgress, Grow, Link, Stack, Typography } from '@mui/material'
 import { Check } from '@mui/icons-material'
 import { useEmailPasswordAuth, useSendPasswordResetEmailHandler } from './hooks'
+import { usePasswordHandlers } from 'hooks'
 import { PasswordAndConfirmationForm, SingleLineForm } from 'components/molecules'
 
 export const EmailPasswordForm: React.FC = () => {
   const emailRef = useRef<HTMLTextAreaElement>(null)
+  const {
+    password,
+    passwordValidationMessage,
+    passwordMismatch,
+    handlePasswordChange,
+    handlePasswordChangeWithValidation,
+    handleConfirmationChange,
+  } = usePasswordHandlers()
   const {
     email,
     emailIsValid,
@@ -13,19 +22,13 @@ export const EmailPasswordForm: React.FC = () => {
     isLoading,
     showPasswordAndConfirmationForm,
     showPasswordForm,
-    password,
-    passwordValidationMessage,
-    passwordMismatch,
     errorMessage,
     handleEmailChange,
     handleContinueWithEmailButtonClick,
     handleChangeEmailButtonClick,
-    handlePasswordChange,
-    handlePasswordChangeWithValidation,
-    handleConfirmationChange,
     handleSignInButtonClick,
     handleSignUpButtonClick,
-  } = useEmailPasswordAuth(emailRef)
+  } = useEmailPasswordAuth(emailRef, password)
   const { isSending, finishedSending, handleSendEmailClick } = useSendPasswordResetEmailHandler()
 
   const message = `Sign ${showPasswordAndConfirmationForm ? 'up' : 'in'} with ${email}`

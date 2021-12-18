@@ -1,10 +1,26 @@
-import { Typography } from '@mui/material'
+import NextLink from 'next/link'
+import { Link, Typography } from '@mui/material'
 import { CardGridListSkeleton, RecipeCardGridList, RecipeDetailsDrawer } from 'components/molecules'
 import { useRecipeDetails, useRecipes } from './hooks'
 
 export const RecipeBoard: React.FC = () => {
-  const { recipes, error } = useRecipes()
+  const { recipes, error, noIngredient } = useRecipes()
   const { recipeInfo, recipeDetailError, resetRecipe, handleRecipeClick } = useRecipeDetails()
+
+  if (noIngredient) {
+    return (
+      <>
+        <Typography>{`You don't have any ingredients in the pantry yet.`}</Typography>
+        <Typography>
+          Please register ingredients in the{' '}
+          <NextLink href="/pantry" passHref>
+            <Link>pantry</Link>
+          </NextLink>{' '}
+          page.
+        </Typography>
+      </>
+    )
+  }
 
   if (error) {
     return <Typography color="red">{error.message}</Typography>

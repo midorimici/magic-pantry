@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 import { fetchSignInMethodsForEmail, AuthError, SignInMethod } from '@firebase/auth'
 import { auth } from 'lib/firebase'
 import { loadingHandler } from 'lib/loadingHandler'
+import { authUserState } from 'states/auth/atom'
 
 export const useSignInMethod = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [isError, setIsError] = useState(false)
   const [isEmailPasswordAuth, setIsEmailPasswordAuth] = useState(false)
+  const authUser = useRecoilValue(authUserState)
 
   useEffect(() => {
-    if (auth.currentUser?.email) {
-      const email = auth.currentUser.email
+    if (authUser?.email) {
+      const email = authUser.email
       loadingHandler(setIsLoading, async () => {
         await fetchSignInMethodsForEmail(auth, email)
           .then((methods: string[]) => {
@@ -24,7 +27,7 @@ export const useSignInMethod = () => {
           })
       })
     }
-  }, [])
+  }, [authUser])
 
   return { isLoading, isError, isEmailPasswordAuth }
 }

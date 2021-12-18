@@ -13,18 +13,16 @@ import { auth } from 'lib/firebase'
 import { loadingHandler } from 'lib/loadingHandler'
 import { authUserState } from 'states/auth/atom'
 
-export const useEmailPasswordAuth = (ref: React.RefObject<HTMLTextAreaElement>) => {
+export const useEmailPasswordAuth = (
+  ref: React.RefObject<HTMLTextAreaElement>,
+  password: string
+) => {
   const [email, setEmail] = useState('')
   const [emailIsValid, setEmailIsValid] = useState(false)
   const [validationError, setValidationError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [showPasswordAndConfirmationForm, setShowPasswordAndConfirmationForm] = useState(false)
   const [showPasswordForm, setShowPasswordForm] = useState(false)
-
-  const [password, setPassword] = useState('')
-  const [passwordConfirmation, setPasswordConfirmation] = useState('')
-  const [passwordMismatch, setPasswordMismatch] = useState(false)
-  const [passwordValidationMessage, setPasswordValidationMessage] = useState<string | null>(null)
 
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -75,64 +73,6 @@ export const useEmailPasswordAuth = (ref: React.RefObject<HTMLTextAreaElement>) 
     setShowPasswordForm(false)
   }
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPassword(e.target.value)
-  }
-
-  const handlePasswordChangeWithValidation = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value
-    setPassword(value)
-
-    // Validate password
-    if (value.length < 8) {
-      setPasswordValidationMessage('Password should be at least 8 characters long.')
-      return
-    }
-
-    if (!/[a-z]/.test(value)) {
-      setPasswordValidationMessage('Password should contain at least one lowercase letters.')
-      return
-    }
-
-    if (!/[A-Z]/.test(value)) {
-      setPasswordValidationMessage('Password should contain at least one uppercase letters.')
-      return
-    }
-
-    if (!/\d/.test(value)) {
-      setPasswordValidationMessage('Password should contain at least one digit.')
-      return
-    }
-
-    if (!/[^a-zA-Z0-9]/.test(value)) {
-      setPasswordValidationMessage('Password should contain at least one special character.')
-      return
-    }
-
-    setPasswordValidationMessage('')
-
-    // Check if passwords match
-    if (value !== passwordConfirmation) {
-      setPasswordMismatch(true)
-      return
-    }
-
-    setPasswordMismatch(false)
-  }
-
-  const handleConfirmationChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value
-    setPasswordConfirmation(value)
-
-    // Check if passwords match
-    if (value !== password) {
-      setPasswordMismatch(true)
-      return
-    }
-
-    setPasswordMismatch(false)
-  }
-
   const handleSignInButtonClick = () => {
     loadingHandler(setIsLoading, async () => {
       await signInWithEmailAndPassword(auth, email, password)
@@ -168,16 +108,10 @@ export const useEmailPasswordAuth = (ref: React.RefObject<HTMLTextAreaElement>) 
     isLoading,
     showPasswordAndConfirmationForm,
     showPasswordForm,
-    password,
-    passwordValidationMessage,
-    passwordMismatch,
     errorMessage,
     handleEmailChange,
     handleContinueWithEmailButtonClick,
     handleChangeEmailButtonClick,
-    handlePasswordChange,
-    handlePasswordChangeWithValidation,
-    handleConfirmationChange,
     handleSignInButtonClick,
     handleSignUpButtonClick,
   }

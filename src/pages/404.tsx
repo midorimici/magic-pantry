@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import NextLink from 'next/link'
 import { Link } from '@mui/material'
 import { Meta, PageTitle } from 'components/atoms'
-import { Container, HeaderProps } from 'components/molecules'
+import { Container, HeaderProps } from 'components/organisms/container'
 
 const NotFound: NextPage<HeaderProps> = (props) => {
   return (

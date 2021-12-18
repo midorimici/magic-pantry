@@ -1,5 +1,5 @@
 import { Meta, PageTitle, TopDescription } from 'components/atoms'
-import { Container, HeaderProps } from 'components/molecules'
+import { Container, HeaderProps } from 'components/organisms/container'
 
 export const Top: React.FC<HeaderProps> = (props) => {
   return (

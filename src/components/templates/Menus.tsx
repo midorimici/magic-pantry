@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material'
 import { Meta, PageTitle, SpoonacularBacklink } from 'components/atoms'
-import { Container, HeaderProps } from 'components/molecules'
+import { Container, HeaderProps } from 'components/organisms/container'
 import { RecipeBoard } from 'components/organisms/menus'
 
 export const Menus: React.FC<HeaderProps> = (props) => {

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { AppBar, Box, Skeleton, Stack, Toolbar } from '@mui/material'
-import { HeaderContents, HeaderContentsProps } from 'components/atoms'
+import { HeaderContents, HeaderContentsProps } from './HeaderContents'
 
 export type HeaderProps = {
   /** User auth info is loading */

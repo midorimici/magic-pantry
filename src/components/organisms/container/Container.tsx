@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material'
-import { Header, HeaderProps } from 'components/molecules'
+import { Header, HeaderProps } from './Header'
 
 export const Cont: React.FC<HeaderProps> = ({ children, ...props }) => {
   return (

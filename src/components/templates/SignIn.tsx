@@ -1,5 +1,5 @@
 import { Meta, PageTitle } from 'components/atoms'
-import { Container, HeaderProps } from 'components/molecules'
+import { Container, HeaderProps } from 'components/organisms/container'
 import { SignInForm } from 'components/organisms/sign-in'
 
 export const SignIn: React.FC<HeaderProps> = (props) => {

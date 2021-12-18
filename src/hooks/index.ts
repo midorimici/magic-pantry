@@ -1,4 +1,5 @@
 export { useAuthState } from './useAuthState'
 export { useDatabasePaths } from './useDatabasePaths'
 export { useIngredients } from './useIngredients'
+export { usePasswordHandlers } from './usePasswordHandlers'
 export { useSignOutHandler } from './useSignOutHandler'

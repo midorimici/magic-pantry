@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Meta, PageTitle } from 'components/atoms'
-import { Container, HeaderProps } from 'components/molecules'
+import { Container, HeaderProps } from 'components/organisms/container'
 import {
   AddIngredientDialog,
   IngredientBoard,

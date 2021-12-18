@@ -5,7 +5,7 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { lightGreen } from '@mui/material/colors'
-import type { HeaderProps } from 'components/molecules'
+import type { HeaderProps } from 'components/organisms/container'
 import { useAuthState, useSignOutHandler } from 'hooks'
 import { authUserState } from 'states/auth/atom'
 import { useEffect } from 'react'
@@ -32,7 +32,7 @@ const PageContainer: React.FC<PageContainerProps> = ({ component: Component }) =
     const path = router.pathname
     if (user === null) {
       // When user is not signed in
-      if (!isLoading && !isLoadingAuthState && (path === '/pantry' || path === '/menus')) {
+      if (!isLoading && !isLoadingAuthState && path !== '/' && path !== '/sign-in') {
         router.push('/sign-in')
       }
     } else {

@@ -1,3 +1,4 @@
+export { useDeleteAccount } from './useDeleteAccount'
 export { useFormHandlers } from './useFormHandlers'
 export { usePasswordAuth } from './usePasswordAuth'
 export { usePasswordUpdate } from './usePasswordUpdate'

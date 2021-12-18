@@ -64,6 +64,13 @@ export const usePasswordHandlers = () => {
     setPasswordMismatch(false)
   }
 
+  const resetStates = () => {
+    setPassword('')
+    setPasswordConfirmation('')
+    setPasswordMismatch(false)
+    setPasswordValidationMessage(null)
+  }
+
   return {
     password,
     passwordValidationMessage,
@@ -71,5 +78,6 @@ export const usePasswordHandlers = () => {
     handlePasswordChange,
     handlePasswordChangeWithValidation,
     handleConfirmationChange,
+    resetStates,
   }
 }

@@ -19,6 +19,8 @@ const fetcher = async (url: string) => {
 
 export const useRecipes = () => {
   const [ingNames, setIngNames] = useState('')
+  const [noIngredient, setNoIngredient] = useState(false)
+  const [initLoadCompleted, setInitLoadCompleted] = useState(false)
   const { ingredients } = useIngredients()
   const { data, error } = useSWR<Recipe[], Error>(
     ingNames && `${baseURL}&ingredients=${ingNames}`,
@@ -26,11 +28,16 @@ export const useRecipes = () => {
   )
 
   useEffect(() => {
-    const names = Object.values(ingredients)
-      .map((ing: Ingredient) => ing.name)
-      .join()
-    setIngNames(names)
+    if (initLoadCompleted && Object.keys(ingredients).length === 0) {
+      setNoIngredient(true)
+    } else {
+      const names = Object.values(ingredients)
+        .map((ing: Ingredient) => ing.name)
+        .join()
+      setIngNames(names)
+    }
+    setInitLoadCompleted(true)
   }, [ingredients])
 
-  return { recipes: data, error }
+  return { recipes: data, error, noIngredient }
 }

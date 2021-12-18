@@ -9,6 +9,8 @@ type Props = {
   isLoading: boolean
   /** Label text on button */
   buttonLabel: string
+  /** Label text of textfield. Default value is 'Password'. */
+  passwordLabel?: string
   /** Process when password textfield content changed */
   handlePasswordChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
   /** Process when password confirmation textfield content changed */
@@ -22,6 +24,7 @@ export const PasswordAndConfirmationForm: React.FC<Props> = ({
   mismatch,
   isLoading,
   buttonLabel,
+  passwordLabel = 'Password',
   handlePasswordChange,
   handleConfirmationChange,
   handleButtonClick,
@@ -33,14 +36,14 @@ export const PasswordAndConfirmationForm: React.FC<Props> = ({
           autoFocus
           error={validationMessage !== null && validationMessage !== ''}
           helperText={validationMessage}
-          label="Password"
+          label={passwordLabel}
           type="password"
           onChange={handlePasswordChange}
         />
         <TextField
           error={mismatch}
           helperText={mismatch && "Passwords don't match."}
-          label="Password (confirmation)"
+          label={`${passwordLabel} (confirmation)`}
           type="password"
           onChange={handleConfirmationChange}
         />

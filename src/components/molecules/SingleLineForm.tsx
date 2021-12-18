@@ -14,6 +14,8 @@ type Props = {
   buttonDisabled?: boolean
   /** Label text on button */
   buttonLabel: string
+  /** Custom label of textfield */
+  label?: string
   /** Contents of the textfield */
   value: string
   /** Process when textfield content changed */
@@ -30,13 +32,14 @@ const SingleLineForm: React.ForwardRefRenderFunction<HTMLTextAreaElement, Props>
     type,
     buttonDisabled,
     buttonLabel,
+    label,
     value,
     handleChange,
     handleButtonClick,
   },
   ref: React.ForwardedRef<HTMLTextAreaElement>
 ) => {
-  const label = `${type[0].toUpperCase()}${type.slice(1)}`
+  const textLabel = label ?? `${type[0].toUpperCase()}${type.slice(1)}`
 
   return (
     <form>
@@ -46,7 +49,7 @@ const SingleLineForm: React.ForwardRefRenderFunction<HTMLTextAreaElement, Props>
           error={validationError}
           helperText={validationMessage}
           inputRef={ref}
-          label={label}
+          label={textLabel}
           type={type}
           value={value}
           sx={{ flexGrow: 1 }}

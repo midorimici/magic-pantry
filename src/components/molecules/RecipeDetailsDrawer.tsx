@@ -22,7 +22,7 @@ type Ing = {
 type Props = {
   missed?: Ing[]
   used?: Ing[]
-  recipe?: RecipeDetail
+  recipe: RecipeDetail | null
   onCloseDrawer: () => void
 }
 
@@ -85,7 +85,7 @@ export const RecipeDetailsDrawer: React.FC<Props> = ({ missed, used, recipe, onC
         <Toolbar sx={{ bgcolor: 'primary.main' }} />
         <DrawerContents />
       </DrawerLarge>
-      <DrawerSmall open={recipe !== undefined} onCloseDrawer={onCloseDrawer}>
+      <DrawerSmall open={recipe !== null} onCloseDrawer={onCloseDrawer}>
         <DrawerContents />
       </DrawerSmall>
     </>

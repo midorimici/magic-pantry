@@ -30,7 +30,7 @@ export const RecipeBoard: React.FC = () => {
     return <Typography color="red">{recipeDetailError.message}</Typography>
   }
 
-  if (recipes === undefined) {
+  if (recipes === null) {
     return <CardGridListSkeleton />
   }
 

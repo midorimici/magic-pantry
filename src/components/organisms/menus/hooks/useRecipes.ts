@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useIngredients } from 'hooks'
 import useSWR from 'swr'
+import { useIngredients } from 'hooks'
+import { getCache, setCache } from 'lib/cacheHandlers'
 
 const spoonacularAppKey = process.env.NEXT_PUBLIC_SPOONACULAR_APP_KEY
 const baseURL = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${spoonacularAppKey}&ranking=2&number=12`
+
+const storageKey = (ingNames: string) => `findByIngredients/${ingNames}`
 
 const fetcher = async (url: string) => {
   const res = await fetch(url)
@@ -18,13 +21,25 @@ const fetcher = async (url: string) => {
 }
 
 export const useRecipes = () => {
+  const [recipes, setRecipes] = useState<Recipe[] | null>(null)
   const [ingNames, setIngNames] = useState('')
   const [noIngredient, setNoIngredient] = useState(false)
   const [initLoadCompleted, setInitLoadCompleted] = useState(false)
+  const [shouldFetch, setShouldFetch] = useState(false)
   const { ingredients } = useIngredients()
-  const { data, error } = useSWR<Recipe[], Error>(
-    ingNames && `${baseURL}&ingredients=${ingNames}`,
-    fetcher
+  const { error } = useSWR<Recipe[], Error>(
+    shouldFetch && ingNames && `${baseURL}&ingredients=${ingNames}`,
+    fetcher,
+    {
+      onError: () => {
+        localStorage.removeItem(storageKey(ingNames))
+      },
+      onSuccess: (data: Recipe[]) => {
+        setCache(storageKey(ingNames), data)
+        setShouldFetch(false)
+        setRecipes(data)
+      },
+    }
   )
 
   useEffect(() => {
@@ -34,10 +49,21 @@ export const useRecipes = () => {
       const names = Object.values(ingredients)
         .map((ing: Ingredient) => ing.name)
         .join()
-      setIngNames(names)
+
+      getCache(
+        storageKey(names),
+        (data: Recipe[]) => {
+          setShouldFetch(false)
+          setRecipes(data)
+        },
+        () => {
+          setShouldFetch(true)
+          setIngNames(names)
+        }
+      )
     }
     setInitLoadCompleted(true)
   }, [ingredients])
 
-  return { recipes: data, error, noIngredient }
+  return { recipes, error, noIngredient }
 }

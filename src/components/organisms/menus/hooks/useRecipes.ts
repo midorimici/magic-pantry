@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { useIngredients } from 'hooks'
-import { getCache, setCache } from 'lib/cacheHandlers'
+import { clearCache, getCache, setCache } from 'lib/cacheHandlers'
 import { fetcher } from 'lib/fetcher'
 
 const spoonacularAppKey = process.env.NEXT_PUBLIC_SPOONACULAR_APP_KEY
@@ -30,6 +30,10 @@ export const useRecipes = () => {
       },
     }
   )
+
+  useEffect(() => {
+    clearCache()
+  }, [])
 
   useEffect(() => {
     if (initLoadCompleted && Object.keys(ingredients).length === 0) {

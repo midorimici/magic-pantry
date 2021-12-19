@@ -2,23 +2,12 @@ import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { useIngredients } from 'hooks'
 import { getCache, setCache } from 'lib/cacheHandlers'
+import { fetcher } from 'lib/fetcher'
 
 const spoonacularAppKey = process.env.NEXT_PUBLIC_SPOONACULAR_APP_KEY
 const baseURL = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${spoonacularAppKey}&ranking=2&number=12`
 
 const storageKey = (ingNames: string) => `findByIngredients/${ingNames}`
-
-const fetcher = async (url: string) => {
-  const res = await fetch(url)
-
-  if (!res.ok) {
-    const error = new Error('An error occurred while fetching the data.')
-    error.message = (await res.json()).message
-    throw error
-  }
-
-  return res.json()
-}
 
 export const useRecipes = () => {
   const [recipes, setRecipes] = useState<Recipe[] | null>(null)

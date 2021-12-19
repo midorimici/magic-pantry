@@ -13,6 +13,7 @@ export const DrawerSmall: React.FC<Props> = ({ open, onCloseDrawer, children }) 
     <Drawer
       anchor="right"
       ModalProps={{
+        disableScrollLock: true,
         keepMounted: true,
       }}
       open={open}

@@ -7,7 +7,7 @@ const spoonacularAppKey = process.env.NEXT_PUBLIC_SPOONACULAR_APP_KEY
 const reqURL = (id: number) =>
   `https://api.spoonacular.com/recipes/${id}/information?apiKey=${spoonacularAppKey}`
 
-const storageKey = (id: number) => `recipes/${id}`
+const storageKey = (id: number) => `magic-pantry/recipes/${id}`
 
 export const useRecipeDetails = () => {
   const [recipeId, setRecipeId] = useState<number | null>(null)

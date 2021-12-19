@@ -7,7 +7,7 @@ import { fetcher } from 'lib/fetcher'
 const spoonacularAppKey = process.env.NEXT_PUBLIC_SPOONACULAR_APP_KEY
 const baseURL = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${spoonacularAppKey}&ranking=2&number=12`
 
-const storageKey = (ingNames: string) => `findByIngredients/${ingNames}`
+const storageKey = (ingNames: string) => `magic-pantry/findByIngredients/${ingNames}`
 
 export const useRecipes = () => {
   const [recipes, setRecipes] = useState<Recipe[] | null>(null)

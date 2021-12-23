@@ -1,4 +1,5 @@
 export { Account } from './Account'
+export { EmailVerification } from './EmailVerification'
 export { Menus } from './Menus'
 export { Pantry } from './Pantry'
 export { SignIn } from './SignIn'

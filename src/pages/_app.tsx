@@ -37,8 +37,16 @@ const PageContainer: React.FC<PageContainerProps> = ({ component: Component }) =
       }
     } else {
       // When user is signed in
-      if (path === '/sign-in') {
-        router.push('/pantry')
+      if (user.emailVerified) {
+        // When user email is verified
+        if (path === '/sign-in' || path === '/email-verification') {
+          setTimeout(() => router.push('/pantry'), 1000)
+        }
+      } else {
+        // When user email is not verified
+        if (path !== '/' && path !== '/email-verification') {
+          router.push('/email-verification')
+        }
       }
     }
   }, [isLoading, isLoadingAuthState, user, router])

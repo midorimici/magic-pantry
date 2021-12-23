@@ -5,7 +5,7 @@ import { authUserState } from 'states/auth/atom'
 import { loadingHandler } from 'lib/loadingHandler'
 
 const actionCodeSettings: ActionCodeSettings = {
-  url: 'http://localhost:3000/email-verification',
+  url: process.env.NEXT_PUBLIC_EMAIL_VERIFICATION_URL ?? '',
   handleCodeInApp: true,
 }
 

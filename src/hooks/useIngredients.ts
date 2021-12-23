@@ -12,21 +12,29 @@ export const useIngredients = () => {
   const { pantryPath } = useDatabasePaths()
 
   useEffect(() => {
+    let isSubscribed = true
+
     if (pantryPath) {
       loadingHandler(setIsLoading, async () => {
         await get(ref(db, pantryPath))
           .then((snapshot: DataSnapshot) => {
-            if (snapshot.exists()) {
-              const data: Ingredients = snapshot.val()
-              setIngredients(data)
-            } else {
-              setIngredients({})
+            if (isSubscribed) {
+              if (snapshot.exists()) {
+                const data: Ingredients = snapshot.val()
+                setIngredients(data)
+              } else {
+                setIngredients({})
+              }
             }
           })
           .catch((err) => {
             console.error(`Data get error: ${err.code} ${err.message} ${err.stack}`)
           })
       })
+    }
+
+    return () => {
+      isSubscribed = false
     }
   }, [pantryPath])
 

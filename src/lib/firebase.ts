@@ -1,7 +1,7 @@
 import { getAuth } from '@firebase/auth'
 import { getDatabase } from '@firebase/database'
 import { getApp, getApps, initializeApp, FirebaseApp, FirebaseOptions } from '@firebase/app'
-import { getAnalytics, Analytics } from 'firebase/analytics'
+import { getAnalytics, isSupported } from 'firebase/analytics'
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -22,7 +22,11 @@ if (getApps().length === 0) {
   app = getApp()
 }
 
-const analytics: Analytics = getAnalytics(app)
+isSupported().then((res: boolean) => {
+  if (res) {
+    getAnalytics(app)
+  }
+})
 
 export const auth = getAuth(app)
 export const db = getDatabase(app)

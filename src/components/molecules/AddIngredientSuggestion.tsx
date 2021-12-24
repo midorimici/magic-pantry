@@ -7,7 +7,7 @@ type Props = {
 
 export const AddIngredientSuggestion: React.FC<Props> = ({ setShowDialog }) => {
   return (
-    <Stack alignItems="center" gap={2} justifyContent="center" sx={{ height: '80vh' }}>
+    <Stack alignItems="center" gap={2} justifyContent="center" sx={{ flexGrow: 1 }}>
       <Typography>{`You don't have any ingredients yet.`}</Typography>
       <Button startIcon={<Add />} variant="contained" onClick={() => setShowDialog(true)}>
         Add ingredients

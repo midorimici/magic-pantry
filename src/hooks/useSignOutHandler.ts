@@ -23,16 +23,24 @@ export const useSignOutHandler = () => {
       return
     }
 
+    let isSubscribed = true
+
     loadingHandler(setIsLoading, async () => {
       await signOut(auth)
         .then(() => {
-          resetStates()
-          router.push('/')
+          if (isSubscribed) {
+            resetStates()
+            router.push('/')
+          }
         })
         .catch((err: AuthError) => {
           console.error(`Sign out failed: ${err.code} ${err.message} ${err.stack}`)
         })
     })
+
+    return () => {
+      isSubscribed = false
+    }
   }
 
   return { isLoading, handleSignOut }

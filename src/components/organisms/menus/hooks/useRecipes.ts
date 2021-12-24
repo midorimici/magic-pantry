@@ -36,6 +36,8 @@ export const useRecipes = () => {
   }, [])
 
   useEffect(() => {
+    let isSubscribed = true
+
     if (initLoadCompleted && Object.keys(ingredients).length === 0) {
       setNoIngredient(true)
     } else {
@@ -43,19 +45,25 @@ export const useRecipes = () => {
         .map((ing: Ingredient) => ing.name)
         .join()
 
-      getCache(
-        storageKey(names),
-        (data: Recipe[]) => {
-          setShouldFetch(false)
-          setRecipes(data)
-        },
-        () => {
-          setShouldFetch(true)
-          setIngNames(names)
-        }
-      )
+      if (isSubscribed) {
+        getCache(
+          storageKey(names),
+          (data: Recipe[]) => {
+            setShouldFetch(false)
+            setRecipes(data)
+          },
+          () => {
+            setShouldFetch(true)
+            setIngNames(names)
+          }
+        )
+      }
     }
     setInitLoadCompleted(true)
+
+    return () => {
+      isSubscribed = false
+    }
   }, [ingredients])
 
   return { recipes, error, noIngredient }

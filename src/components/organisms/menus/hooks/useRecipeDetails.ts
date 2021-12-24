@@ -33,7 +33,9 @@ export const useRecipeDetails = () => {
   )
 
   useEffect(() => {
-    if (recipeId !== null) {
+    let isSubscribed = true
+
+    if (isSubscribed && recipeId !== null) {
       getCache(
         storageKey(recipeId),
         (data: RecipeDetail) => {
@@ -42,6 +44,10 @@ export const useRecipeDetails = () => {
         },
         () => setShouldFetch(true)
       )
+    }
+
+    return () => {
+      isSubscribed = false
     }
   }, [recipeId])
 

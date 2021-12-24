@@ -12,12 +12,14 @@ export const useSignInMethod = () => {
   const authUser = useRecoilValue(authUserState)
 
   useEffect(() => {
+    let isSubscribed = true
+
     if (authUser?.email) {
       const email = authUser.email
       loadingHandler(setIsLoading, async () => {
         await fetchSignInMethodsForEmail(auth, email)
           .then((methods: string[]) => {
-            if (methods.includes(SignInMethod.EMAIL_PASSWORD)) {
+            if (isSubscribed && methods.includes(SignInMethod.EMAIL_PASSWORD)) {
               setIsEmailPasswordAuth(true)
             }
           })
@@ -26,6 +28,10 @@ export const useSignInMethod = () => {
             setIsError(true)
           })
       })
+    }
+
+    return () => {
+      isSubscribed = false
     }
   }, [authUser])
 
